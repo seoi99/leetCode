@@ -1,0 +1,13 @@
+var minFallingPathSum = function(A) {
+    let col = A.length;
+    let row = A[0].length;
+    
+    for (let i = 1; i < col; i++) {
+        for (let j = 0; j < row; j++) {
+            let left = Math.max(j - 1, 0);
+            let right = Math.min(j + 1, row - 1);
+            A[i][j] += Math.min(A[i-1][left], A[i-1][j], A[i - 1][right])
+        }
+    }
+    return Math.min(...A[col-1])
+};
