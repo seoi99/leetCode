@@ -1,0 +1,16 @@
+FreqStack.prototype.push = function(x) {
+    if (!this.map[x]) this.map[x] = 0;
+    this.map[x]++;
+    if (this.map[x] > this.top) this.top = this.map[x];
+    this.stack[this.map[x]].push(x);
+};
+
+/**
+ * @return {number}
+ */
+FreqStack.prototype.pop = function() {
+    let res = this.stack[this.top].pop();
+    if (this.stack[this.top].length === 0) this.top--;
+    this.map[res]--;
+    return res;
+};
