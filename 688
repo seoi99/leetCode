@@ -1,0 +1,38 @@
+var knightProbability = function(N, K, r, c) {
+    
+    let memo = {}
+    
+    let dfs = function(K,r,c) {
+        const key = `${r}:${c}:${K}`;
+        
+        if (memo[key]) return memo[key];
+        
+        if (
+            r < 0 || 
+            r >= N || 
+            c < 0 || 
+            c >= N
+           ) return 0;
+
+        if (K <= 0) return 1;
+        
+        let inbound = 0;
+        inbound += dfs(K - 1, r + 2, c + 1)
+        inbound += dfs(K - 1, r - 2, c + 1)
+        inbound += dfs(K - 1, r + 2, c - 1)
+        inbound += dfs(K - 1, r - 2, c - 1)
+        inbound += dfs(K - 1, r + 1, c + 2)
+        inbound += dfs(K - 1, r - 1, c + 2)
+        inbound += dfs(K - 1, r + 1, c - 2)
+        inbound += dfs(K - 1, r - 1, c - 2)
+        
+        memo[key] = inbound;
+        
+        return memo[key]
+    }
+    
+    let res = dfs(K,r,c);
+
+    
+    return res/Math.pow(8,K)
+};
