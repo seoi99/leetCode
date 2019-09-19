@@ -1,0 +1,13 @@
+var judgeSquareSum = function(c) {
+    
+    let guess = Math.floor(Math.sqrt(c));
+    
+    if (c === 0) return true
+    while (guess >= 1) {
+        let pNum1 = Math.pow(guess,2);
+        let remainder = c - pNum1;
+        if (Math.sqrt(remainder) === Math.floor(Math.sqrt(remainder))) return true
+        guess--;
+    }
+    return false
+};
