@@ -1,0 +1,26 @@
+var canPartitionKSubsets = function(nums, k) {
+    let sum = nums.reduce((acc,el) => acc + el)
+    let eachSum = sum / k;
+    if (eachSum % 1 !== 0) return false;
+    
+    let bucket = new Array(nums.length).fill(false);
+    let count = nums.length;
+    let dfs = function(idx, target) {
+        if (count === 0) return true
+        if (target === 0) return dfs(0, eachSum);
+        for (let i = idx; i < nums.length; i++) {
+            if (target >= nums[i] && !bucket[i]) {
+                bucket[i] = true;
+                count--
+                if (dfs(idx + 1, target - nums[i])) {
+                    return true;
+                }
+                count++
+                bucket[i] = false
+            } 
+        }
+        return false;
+    }
+    
+    return dfs(0, eachSum)
+};
