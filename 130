@@ -1,0 +1,44 @@
+var solve = function(board) {
+    
+    
+    if (board.length === 0) return []
+    let col = board.length;
+    let row = board[0].length;
+    
+    let visited = {}
+    var dfs = function(x,y, inborder) {
+        let key = `${x}-${y}`
+        if (visited[key]) return null
+        if (x < 0 || x >= col || y < 0 || y >= row) return null
+        if (board[x][y] === "O") {
+            if (inborder) {
+                board[x][y] = "O"
+            } else {
+                board[x][y] = "X"
+            }
+        } else {
+            return null
+        }
+       visited[key] = true;
+       dfs(x + 1,y,inborder)
+       dfs(x -1,y,inborder)
+       dfs(x,y + 1,inborder)
+       dfs(x,y -1,inborder)
+    }
+    for (let i = 0; i < col; i++) {
+        for (let j = 0; j < row; j++) {
+            if (board[i][j] === "O" && (i === 0 || i === col - 1 || j === 0 || j === row - 1)) {
+              dfs(i,j,true)
+            }
+        }
+    }
+    
+    for (let i = 1; i < col - 1; i++) {
+        for (let j = 1; j < row - 1; j++) {
+            if (board[i][j] === "O") {
+              dfs(i,j,false)
+            }
+        }
+    }
+    return board
+};
