@@ -1,0 +1,22 @@
+var trap = function(height) {
+    let start = 0;
+    let end = height.length - 1;
+    let lMax = 0;
+    let rMax = 0;
+    let ans = 0;
+    
+    while (start < end) {
+        
+        lMax = Math.max(height[start], lMax);
+        if (height[start] < lMax) {
+            ans += lMax - height[start]
+        }
+        rMax = Math.max(height[end], rMax);
+        
+        if (height[end] < rMax) {
+            ans += rMax - height[end]
+        }
+        height[start] < height[end] ? start++ : end--
+    }
+    return ans
+};
