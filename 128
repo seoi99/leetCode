@@ -1,0 +1,21 @@
+var longestConsecutive = function(nums) {
+    
+    let map = {};
+    let max = 0;
+    for (let n of nums) {
+        if (map[n] !== undefined) continue;
+        
+        let left = map[n - 1] || 0;
+        let right = map[n + 1] || 0;
+        
+        let len = left + right + 1;
+        
+        map[n - left] = len;
+        map[n + right] = len;
+        map[n] = len;
+        
+        max = Math.max(max, len)
+    }
+    
+    return max
+};
