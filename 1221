@@ -1,0 +1,15 @@
+var balancedStringSplit = function(s) {
+    let left = "L"
+    let right = "R"
+    let balance = 0;
+    let res = 0;
+    for (let str of s) {
+        if (str === left) balance++
+        if (str === right) balance--
+        if (balance === 0) {
+            res++;
+        }
+    }
+        return res
+    
+};
