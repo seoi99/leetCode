@@ -1,0 +1,33 @@
+var intervalIntersection = function(A, B) {
+    
+    if (A.length === 0 || B.length === 0) return []
+    let intersections = [];
+    let sectionA = A.shift();
+    let sectionB = B.shift();
+    let done = false;
+    while (!done) {
+        let aS = sectionA[0], aE = sectionA[1];
+        let bS = sectionB[0], bE = sectionB[1];
+        
+        let rangeMin = Math.max(aS,bS);
+        let rangeMax = Math.min(aE,bE);
+        if (rangeMin <= rangeMax)
+            intersections.push([rangeMin,rangeMax]);
+        
+        if (A.length === 0 && B.length === 0) {
+            done = true
+        }
+        
+        if (aE < bE) {
+            if (A.length > 0) sectionA = A.shift();
+            else break;
+        } else {
+            if (B.length > 0) sectionB = B.shift();
+            else break;
+        }
+        
+    }
+    
+    
+    return intersections
+};
