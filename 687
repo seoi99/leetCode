@@ -1,0 +1,19 @@
+var longestUnivaluePath = function(root) {
+        let max = 0;
+    
+    var findLongestPath = function(root, target) {
+        if (!root) return null;
+        let left = findLongestPath(root.left, root.val);
+        let right = findLongestPath(root.right, root.val);
+        max = Math.max(left + right, max);
+        if (root.val === target) return Math.max(left, right) + 1
+        return 0
+        
+        
+    }
+    if (!root) return 0
+    findLongestPath(root, root.val)
+    return max
+
+    
+};
