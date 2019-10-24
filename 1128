@@ -1,0 +1,21 @@
+var numEquivDominoPairs = function(dominoes) {
+    let pair = 0;
+    let map = {};
+    
+    dominoes.forEach((arr, i) => {
+        let findMin = Math.min(...arr);
+        let findMax = Math.max(...arr);
+        
+        let key = findMin * 10 + findMax;
+        
+        map[key] = (map[key] || 0) + 1;
+    })
+    
+    const formula = (x) => (x *( x - 1)/2)
+    let values = Object.values(map);
+    
+    values.forEach(val => {
+        pair += formula(val)
+    })
+    return pair
+};
