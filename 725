@@ -1,0 +1,30 @@
+var splitListToParts = function(root, k) {
+    var len = 0, dummy = root;
+    while (dummy) {
+        len++;
+        dummy = dummy.next;
+    }
+    console.log(dummy)
+    var partition = Math.floor(len / k);
+    var remainder = len % k;
+    var results = [root];
+    var last = root;
+    while (k > 1) {
+        for (var i = 0; i < partition; i++) {
+            last = root;
+            root = root.next;
+        }
+        if (remainder > 0) {
+            last = root;
+            root = root.next;
+            remainder--;
+        }
+        if (last) {
+            last.next = null;    
+        }
+        results.push(root);
+        k--;
+    }
+
+    return results;
+};
