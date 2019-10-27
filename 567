@@ -1,0 +1,26 @@
+var checkInclusion = function(s1, s2) {
+    
+    if (s1.length > s2.length) return false;
+    let container = new Array(26).fill(0)
+    for (let char of s1) {
+        container[char.charCodeAt(0) - 97]++
+    }
+    
+    for (let i = 0; i < s2.length; i++) {
+        if (i - s1.length >= 0) {
+            container[(s2[i- s1.length].charCodeAt(0) - 97)]++
+        }
+        container[(s2[i].charCodeAt(0) - 97)]--
+        if (isZero(container)) {
+            return true;
+        }
+    }
+    return false;
+    
+    function isZero(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] !== 0) return false;
+        }
+        return true;
+    }
+};
