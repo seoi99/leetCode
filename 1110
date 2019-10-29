@@ -1,0 +1,18 @@
+var delNodes = function(root, to_delete) {
+    
+    let res = [];
+    
+    function helper(node, isRoot) {
+        if (!node) return null;
+        const isInList = to_delete.includes(node.val);
+        if (isRoot && !isInList) {
+            res.push(node);
+        }
+        node.left = helper(node.left, isInList);
+        node.right = helper(node.right, isInList);
+        return isInList ? null : node;
+    }
+    
+    helper(root, true);
+    return res
+};
