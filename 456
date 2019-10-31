@@ -1,0 +1,16 @@
+var find132pattern = function(nums) {
+    let min = -Infinity;
+    let stack = [];
+    
+    for (let i = nums.length - 1; i >= 0; i--) {
+        if (nums[i] < min) { 
+            return true;
+        } else {
+            while (stack[stack.length - 1] < nums[i]) {
+                min = stack.pop();
+            }
+            stack.push(nums[i]);
+        }
+    }
+    return false;
+};
