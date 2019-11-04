@@ -1,0 +1,42 @@
+var findOrder = function(numCourses, prerequisites) {
+    let graph = new Array(numCourses).fill(0).map(el => []);
+    
+    for (let [c,p] of prerequisites) {
+        graph[p] = (graph[p] || []);
+        graph[p].push(c);
+    }
+    
+    let required = new Array(numCourses).fill(0);
+    
+    for (let i = 0; i < numCourses; i++) {
+        for (let num of graph[i]) {
+            required[num]++;
+        }
+    }
+    
+    
+    let res = [];
+    
+    
+    const topologicalSort = graph => {
+        let queue = [];
+        required.forEach((c,i) => {
+            if (required[i] === 0) {
+                queue.push(i);
+            }
+        })
+        
+        while (queue.length) {
+            let cur = queue.shift();
+            res.push(cur);
+            
+            for (let next of graph[cur]) {
+                if (--required[next] === 0) {
+                    queue.push(next);
+                }
+            }
+        }
+    }
+    topologicalSort(graph);
+    return res.length === numCourses ? res : []
+};
