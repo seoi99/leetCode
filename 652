@@ -1,0 +1,21 @@
+var findDuplicateSubtrees = function(root) {
+    let map = {}, res = [];
+    
+    
+    function preOrder(root) {
+        if (!root) return "#";
+        
+        let str = root.val + preOrder(root.left) + preOrder(root.right);
+        
+        map[str] = (map[str] || 0) + 1;
+        if (map[str] === 2) {
+            res.push(root)
+        }
+        
+        return str;
+    }
+    
+    preOrder(root)
+    
+    return res
+};
